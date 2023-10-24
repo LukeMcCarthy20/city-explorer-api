@@ -36,6 +36,17 @@ app.get('/weather', (request, response) => {
   }
 });
 
+app.use((error, request, response, next) => {
+  response.status(500).send(error.message);
+});
+
+app.get('*', (request, response) => {
+  response.send('the route does not exsist, sorry. ERROR 404');
+});
+
+
+
+
 class WeatherForcast {
   constructor(weatherObjects) {
     this.date = weatherObjects.datetime;
