@@ -7,6 +7,11 @@ let data = require('./data/weather.json');
 console.log(data);
 const cors = require('cors');
 
+// const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
+
+// const express = require('express');
+// require('dotenv').config();
+// const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5005;
@@ -15,15 +20,16 @@ app.use(cors());
 app.get('/', (request, response) => {
   response.send('Server Working!');
 });
+// http://api.weatherapi.com/v1/forecast.json?key=<YOUR_API_KEY>&q=07112&days=7
 
 app.get('/weather', (request, response) => {
   let searchQuery = request.query.searchQuery;
   let weatherDataToInstant = data.find(weather => weather.city_name === searchQuery);
+  let lat = request.query.lat;
+  let lon = request.query.lon;
+  console.log('request object', lat , lon, searchQuery);
   try {
     // console.log(request.query);
-    // let lat = request.query.lat;
-    // let lon = request.query.lon;
-    // console.log('request object', lat , lon, searchQuery);
     // console.log('from json', weatherDataToInstant);
     // let datatoSendPE = new Weather(weatherDataToInstant);
     let weatherObjects = weatherDataToInstant.data.map((day) => new WeatherForcast(day));
