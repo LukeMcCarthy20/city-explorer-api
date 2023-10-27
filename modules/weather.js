@@ -37,7 +37,7 @@ function parseWeather(weatherData) {
     const weatherSummaries = weatherData.forecast.forecastday.map(day => {
       return new Weather(day);
     });
-    console.log('back from our class constructor:', weatherSummaries);
+    console.log('back from the class constructor:', weatherSummaries);
     return Promise.resolve(weatherSummaries);
   } catch (error) {
     return Promise.reject(error);
