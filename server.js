@@ -26,7 +26,7 @@ app.get('/movies', moviesHandler);
 
 
 function moviesHandler(request, response){
-  console.log('what is in a req',request.query.city);
+  console.log('what is the req',request.query.city);
   const location = request.query.city;
   movies(location)
     .then(moviesList => response.send(moviesList))
@@ -34,7 +34,6 @@ function moviesHandler(request, response){
       console.error(error);
       response.status(500).send('Something is Wrong!');
     });
-  // response.send('ok');
 }
 
 
@@ -50,7 +49,7 @@ function weatherhandle(req, res){
     .then(weatherForecasts => res.status(200).send(weatherForecasts))
     .catch((error) => {
       console.error(error);
-      res.status(500).send('Sorry, something went wrong!');
+      res.status(500).send('Something went wrong!');
     });
 }
 
@@ -60,7 +59,7 @@ app.use((error, request, response, next) => {
 });
 
 app.get('*', (request, response) => {
-  response.send('the route does not exsist, sorry. ERROR 404');
+  response.send('ERROR 404');
 });
 app.use((error, req, res, next) =>{
   console.log(error.message);
@@ -75,10 +74,5 @@ app.use((error, req, res, next) =>{
 
 
 
-
-// Test
-
 app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
-
-//finished lab 7
 
