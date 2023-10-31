@@ -13,7 +13,7 @@ async function getMovies(location) {
 
 
 
-  // https://api.themoviedb.org/3/search/movie?api_key=45b661bcbcf607acc1df316673e4b463&query=seattle
+  // https://api.themoviedb.org/3/search/movie?api_key=&query=seattle
 
   if (cache[key] && (Date.now() - cache[key].timestamp < 5000)) {
     console.log('Cache hit');
