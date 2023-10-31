@@ -4,9 +4,10 @@ console.log('file connected');
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-let data = require('./data/weather.json');
-console.log(data);
+// let data = require('./data/weather.json');
+// console.log(data);
 const weather = require('./modules/weather.js');
+const movies = require('./modules/movies.js');
 
 
 const app = express();
@@ -19,6 +20,27 @@ app.get('/', (request, response) => {
 
 
 app.get('/weather', weatherhandle);
+app.get('/movies', moviesHandler);
+
+
+
+
+function moviesHandler(request, response){
+  console.log('what is in a req',request.query.city);
+  const location = request.query.city;
+  movies(location);
+  // .then(moviesList => response.send(moviesList))
+  // .catch((error) => {
+  //   console.error(error);
+  //   response.status(500).send('Something is Wrong!');
+  // });
+  response.send('ok');
+}
+
+
+
+
+
 
 
 function weatherhandle(req, res){
@@ -48,36 +70,8 @@ app.use((error, req, res, next) =>{
 
 
 
-// app.get('/weather', (request, response) => {
-//   let searchQuery = request.query.searchQuery;
-//   let weatherDataToInstant = data.find(weather => weather.city_name === searchQuery);
-//   try {
-//     // console.log(request.query);
-//     // let lat = request.query.lat;
-//     // let lon = request.query.lon;
-//     // console.log('request object', lat , lon, searchQuery);
-//     // console.log('from json', weatherDataToInstant);
-//     // let datatoSendPE = new Weather(weatherDataToInstant);
-//     let weatherObjects = weatherDataToInstant.data.map((day) => new WeatherForcast(day));
-//     console.log('back from the constructor', weatherObjects);
-//     response.send(weatherObjects);
-
-//   } catch (error) {
-//     // eslint-disable-next-line no-undef
-//     next(error);
-//   }
-// });
 
 
-
-
-
-// class WeatherForcast {
-//   constructor(weatherObjects) {
-//     this.date = weatherObjects.datetime;
-//     this.description = weatherObjects.weather.description;
-//   }
-// }
 
 
 
