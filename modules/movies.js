@@ -20,37 +20,37 @@ async function getMovies(location) {
   } else {
     cache[key] = {};
     cache[key].timestamp = Date.now();
-    let results = await axios.get(url);
-    console.log('oh no you',results);
-    // .then(movieData => parseMoviesData(movieData.data));
+    cache[key].data = await axios.get(url)
+      .then(movieData => parseMoviesData(movieData.data));
+    // console.log('the DATA', results);
   }
-  return 'cache[key].data';
+  return cache[key].data;
 }
 
 function parseMoviesData(data) {
   console.log('data!!!!1', data);
-//   try {
-//     const movies = data.results.map(movie => {
-//       return new Movie(movie);
-//     });
-//     return Promise.resolve(movies);
-//   } catch(e) {
-//     return Promise.reject(e);
-//   }
+  try {
+    const movies = data.results.map(movie => {
+      return new Movie(movie);
+    });
+    return Promise.resolve(movies);
+  } catch(e) {
+    return Promise.reject(e);
+  }
 }
 
-// class Movie {
-//   constructor(movie) {
-//     this.title = movie.title;
-//     this.overview = movie.overview;
-//     this.averageVotes = movie.vote_average;
-//     this.totalVotes = movie.vote_count;
-//     this.imageUrl = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
-//     this.popularity = movie.popularity;
-//     this.releasedOn = movie.release_date;
-//     this.timestamp = Date.now();
-//   }
-// }
+class Movie {
+  constructor(movie) {
+    this.title = movie.title;
+    this.overview = movie.overview;
+    this.averageVotes = movie.vote_average;
+    this.totalVotes = movie.vote_count;
+    this.imageUrl = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+    this.popularity = movie.popularity;
+    this.releasedOn = movie.release_date;
+    this.timestamp = Date.now();
+  }
+}
 
 
 

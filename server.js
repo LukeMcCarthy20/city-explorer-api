@@ -28,13 +28,13 @@ app.get('/movies', moviesHandler);
 function moviesHandler(request, response){
   console.log('what is in a req',request.query.city);
   const location = request.query.city;
-  movies(location);
-  // .then(moviesList => response.send(moviesList))
-  // .catch((error) => {
-  //   console.error(error);
-  //   response.status(500).send('Something is Wrong!');
-  // });
-  response.send('ok');
+  movies(location)
+    .then(moviesList => response.send(moviesList))
+    .catch((error) => {
+      console.error(error);
+      response.status(500).send('Something is Wrong!');
+    });
+  // response.send('ok');
 }
 
 
